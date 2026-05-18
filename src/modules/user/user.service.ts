@@ -138,7 +138,7 @@ export class UserService {
         }
 
         if (updateData.avatar) {
-            user.avatar = updateData.avatar;
+            user.avatar = Helper.getImageUrl(updateData.avatar)
         }
 
         await user.update(updateData);
@@ -147,7 +147,7 @@ export class UserService {
             message: 'Cập nhật thông tin thành công',
             data: {
                 ...result,
-                avatar: Helper.getImageUrl(result.avatar)
+                avatar: result.avatar
             }
         };
     }
