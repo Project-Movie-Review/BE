@@ -13,6 +13,7 @@ export const sequelizeConfig = (configService: ConfigService): SequelizeModuleOp
     synchronize: true,
     autoLoadModels: true,
     logging: false,
+    dialectOptions: {},
     models: [
         User,
         Review,

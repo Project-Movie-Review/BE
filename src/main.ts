@@ -26,9 +26,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor);
   app.useGlobalFilters(new AllExceptionFilter);
 
-  // app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-  //   prefix: '/uploads/',
-  // });
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
 
   // Swagger
   const config = new DocumentBuilder()
