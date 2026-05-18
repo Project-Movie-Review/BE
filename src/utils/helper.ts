@@ -26,7 +26,7 @@ export class Helper {
 
   static getImageUrl = (filePath: string) => {
     if (filePath && !filePath.startsWith('http')) {
-        const API_PREFIX = `http://localhost:${process.env.PORT || 3000}/api/v1`;
+        const API_PREFIX = `https://be-7bv6.onrender.com/api/v1`;
         return `${API_PREFIX}/image/${filePath}`;
     }
     return filePath;
