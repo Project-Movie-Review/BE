@@ -90,18 +90,28 @@ export class ReviewService {
 
     async getAndFilterReviews(movieId: number, dto: FilterReviewDto) {
         const reviews = await this.getReviewsByMovieId(movieId);
-        const {page, limit, sortBy, sortOrder} = dto;
+        const { page, limit, sortBy, sortOrder } = dto;
 
         const limitPage = Number(limit || this.configService.get<number>('LIMIT'));
         const currentPage = Number(page || this.configService.get<number>('PAGE'));
-        const offset = (currentPage - 1) * limitPage; 
+        const offset = (currentPage - 1) * limitPage;
 
         const totalRatings = reviews.reduce((sum, r) => sum + (r.rating || 0), 0);
         const averageRating = reviews.length ? (totalRatings / reviews.length).toFixed(1) : 0;
 
         let sortedReviews = reviews;
-        if(sortBy && sortOrder) {
+        if (sortBy && sortOrder) {
             sortedReviews = reviews.sort((a, b) => {
+                // HANDLE DATE
+                if (sortBy === 'createdAt') {
+                    const aDate = new Date(a.createdAt).getTime();
+                    const bDate = new Date(b.createdAt).getTime();
+                    return sortOrder === 'asc'
+                        ? aDate - bDate
+                        : bDate - aDate;
+                }
+
+                // HANDLE STRING / NUMBER
                 const aValue = a[sortBy];
                 const bValue = b[sortBy];
                 if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
