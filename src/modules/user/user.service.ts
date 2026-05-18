@@ -141,7 +141,10 @@ export class UserService {
             updateData.avatar = Helper.getImageUrl(updateData.avatar)
         }
 
-        await user.update(updateData);
+        await user.update({
+            ...updateData,
+            password: updateData.newPassword 
+        });
         const { password, ...result } = user.get({ plain: true });
         return {
             message: 'Cập nhật thông tin thành công',
