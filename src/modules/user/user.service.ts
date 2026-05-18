@@ -138,7 +138,7 @@ export class UserService {
         }
 
         if (updateData.avatar) {
-            user.avatar = Helper.getImageUrl(updateData.avatar)
+            updateData.avatar = Helper.getImageUrl(updateData.avatar)
         }
 
         await user.update(updateData);
