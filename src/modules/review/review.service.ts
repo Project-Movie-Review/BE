@@ -27,7 +27,7 @@ export class ReviewService {
             this.httpService.get(url, {
                 params: {
                     api_key: process.env.MOVIE_API_KEY,
-                    language: 'vi-VN, en-US',
+                    language: 'en-US',
                     page: page,
                 },
             }),
